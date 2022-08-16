@@ -18,7 +18,7 @@ public class DP01背包 {
                 } else {
                     dp[i][j] = Math.max(
                             dp[i - 1][j],
-                            dp[i][j -currentWeight] + currentValue
+                            dp[i -1 ][j -currentWeight] + currentValue
                     );
                 }
             }
