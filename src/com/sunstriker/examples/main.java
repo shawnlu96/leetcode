@@ -21,26 +21,9 @@ public class main {
         }
     }
     public static void main(String[] args) {
-        var counter = new Counter();
-        Thread t = new Thread(()->{
-            try {
-                Thread.sleep(3000);
-                counter.count();
-                System.out.println("count changed");
-                Thread.sleep(3000);
-                System.out.println("end of sub-thread");
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        t.start();
-        while (true){
-            if(counter.count!=0){
-                System.out.println("count change detected, break!");
-                break;
-            }
-        }
-        System.out.println("end of main");
+        System.out.println(main.class.getClassLoader());
+        System.out.println(main.class.getClassLoader().getParent());
+        System.out.println(main.class.getClassLoader().getParent().getParent());
 
     }
 }
