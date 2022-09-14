@@ -8,8 +8,9 @@ import java.util.Set;
 public class L2397被列覆盖的最多行数 {
     public static void main(String[] args) {
 //        System.out.println(new L2397被列覆盖的最多行数().maximumRows(new int[][]{{0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1}, {0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1}, {1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1}, {1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0}, {1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1}, {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1}}, 3));
-       System.out.println(new L2397被列覆盖的最多行数().maximumRows(new int[][]{{0, 0, 0},{1,0,1},{0,1,1},{0,0,1}}, 2));
-
+//       System.out.println(new L2397被列覆盖的最多行数().maximumRows(new int[][]{{0, 0, 0},{1,0,1},{0,1,1},{0,0,1}}, 2));
+       var s = new L2397被列覆盖的最多行数();
+       s.backTrack(3,0, 2);
     }
     int[] nums;
     public int maximumRows(int[][] matrix, int numSelect) {
@@ -21,39 +22,26 @@ public class L2397被列覆盖的最多行数 {
                 nums[i] = nums[i] * 2 + i1;
             }
         }
-        boolean[] used = new boolean[n];
-        backTrack(used,0, numSelect);
-        int maxCount = 0;
-        for (Integer integer : l) {
-            int count = 0;
-            for (int na : nums) {
-                if((na&integer) == na) count++;
-            }
-            maxCount = Math.max(count, maxCount);
-        }
+        backTrack(n,0, numSelect);
+
 
         return maxCount;
     }
 
-    int num = 0;
-    Set<Integer> l = new HashSet<>();
-    private void backTrack(boolean[] used,int start, int numSelect) {
+    int num = 0, maxCount = 0;
+    private void backTrack(int n,int start, int numSelect) {
         if (numSelect == 0) {
-            l.add(num);
-//            int count = 0;
-//            for (int n : nums) {
-//                if((n&num) == n) count++;
-//            }
-//            maxCount = Math.max(count, maxCount);
+            int count = 0;
+            for (int na : nums) {
+                if((na&num) == na) count++;
+            }
+            maxCount = Math.max(count, maxCount);
             return;
         }
-        for (int i = start; i < used.length; i++) {
-            if (used[i]) continue;
-            used[i] = true;
+        for (int i = start; i < n; i++) {
             num |= 1 << i;
-            backTrack(used, start+1,numSelect - 1);
+            backTrack(n, i+1,numSelect - 1);
             num &= ~(1<<i);
-            used[i] = false;
         }
     }
 }
